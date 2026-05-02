@@ -1,0 +1,189 @@
+# My Mentor — Grade 1 English Curriculum Config
+# Curriculum: SMILE (National Curriculum Framework 2022)
+# Publisher: Debbie Hepplewhite International Ltd
+# Phase: 1 | Maintained by: Claude (architect)
+
+curriculum:
+  board: SMILE_NCF2022
+  grade: 1
+  subject: English
+  language: en
+  total_chapters: 14
+  total_themes: 9
+
+student:
+  name: Cristin
+  age: 6
+  primary_language: English
+  home_language: Hindi
+  accent: Indian English
+
+paths:
+  textbook_pdf: data/textbooks/grade1_english.pdf
+  audio_dir: data/audio/
+  vector_db: data/vector_db/
+  scanned_pages: data/textbooks/scanned/
+
+ingestion:
+  chunk_size: 256
+  chunk_overlap: 32
+  vision_model: llava:7b
+  text_model: llama3.1:8b
+  hindi_model: qwen2.5:7b
+
+themes:
+  - id: 1
+    name: "All About Me"
+    chapters: [1, 2]
+  - id: 2
+    name: "People, Places and Safety"
+    chapters: [3]
+  - id: 3
+    name: "Food We Eat"
+    chapters: [4]
+  - id: 4
+    name: "The World of Animals"
+    chapters: [5, 6]
+  - id: 5
+    name: "The World of Plants"
+    chapters: [7, 8]
+  - id: 6
+    name: "Water and Air"
+    chapters: [9, 10]
+  - id: 7
+    name: "On the Go"
+    chapters: [11]
+  - id: 8
+    name: "The Wonderful World"
+    chapters: [12]
+  - id: 9
+    name: "Things We Make and Do"
+    chapters: [13, 14]
+
+chapters:
+  - id: 1
+    title: "My Family"
+    genre: Narrative
+    theme_id: 1
+    phonics_focus: "/er/ sound"
+    grammar: "Proper nouns, Sentences"
+    writing: "Picture description"
+    audio_file: "ENG_G1_Ch01_My_Family__Story_.mp3"
+    key_vocabulary: [cuddles, cousins, vet, home help]
+  - id: 2
+    title: "I Want to Be"
+    genre: Poem
+    theme_id: 1
+    phonics_focus: "FSZL rule (ff/ss/zz/ll)"
+    grammar: "Proper nouns"
+    writing: "Acrostic poem"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 3
+    title: "The Day I Needed Help"
+    genre: Adventure fiction
+    theme_id: 2
+    phonics_focus: "/ar/, /sh/, /ch/, /th/ sounds"
+    grammar: "Plurals (s)"
+    writing: "Sequencing and writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 4
+    title: "Too Many Bananas"
+    genre: Humorous fiction
+    theme_id: 3
+    phonics_focus: "/oi/ sound"
+    grammar: "Singular and plural pronouns"
+    writing: "Imaginative paragraph"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 5
+    title: "How the Elephant Got Its Trunk"
+    genre: African folk tale
+    theme_id: 4
+    phonics_focus: "Short and long vowels"
+    grammar: "Present tense verbs"
+    writing: "Guided sentence writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 6
+    title: "The Cow"
+    genre: Poem
+    theme_id: 4
+    phonics_focus: "/oo/ sound with <ue>"
+    grammar: "Adjectives"
+    writing: "Descriptive list poem"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 7
+    title: "I Am Your New Plant"
+    genre: Informational non-fiction
+    theme_id: 5
+    phonics_focus: "Long vowel sounds with <e>"
+    grammar: "Future tense verbs"
+    writing: "Sequencing and writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 8
+    title: "The Empty Pot"
+    genre: Folk tale
+    theme_id: 5
+    phonics_focus: "/ai/ sound"
+    grammar: "Past tense verbs"
+    writing: "Guided story writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 9
+    title: "The Red Raincoat"
+    genre: Realistic fiction
+    theme_id: 6
+    phonics_focus: "/ee/ sound with <ea>"
+    grammar: "Prepositions"
+    writing: "Guided picture composition"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 10
+    title: "There are Big Waves"
+    genre: Poem
+    theme_id: 6
+    phonics_focus: "/ie/ sound with <igh>"
+    grammar: "Adverbs"
+    writing: "Descriptive writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 11
+    title: "Golu Goes to Town"
+    genre: Informational fiction
+    theme_id: 7
+    phonics_focus: "/ee/ and /ie/ with <y>"
+    grammar: "Speech marks"
+    writing: "Imaginative writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 12
+    title: "My Planet"
+    genre: Poem
+    theme_id: 8
+    phonics_focus: "/ue/ and /ou/ sounds"
+    grammar: "Question words"
+    writing: "Sentence completion and acrostic"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 13
+    title: "Laundry Day"
+    genre: Realistic fiction
+    theme_id: 9
+    phonics_focus: "/or/ sound, plurals ch/sh/x/s"
+    grammar: "Parts of speech"
+    writing: "Illustration and writing"
+    audio_file: ""
+    key_vocabulary: []
+  - id: 14
+    title: "A Good Play"
+    genre: Poem
+    theme_id: 9
+    phonics_focus: "/e/ sound /u:/ /et/"
+    grammar: "Parts of speech"
+    writing: "Imaginative writing"
+    audio_file: ""
+    key_vocabulary: []

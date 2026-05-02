@@ -1,0 +1,15 @@
+# My Mentor — Python Dependencies
+# Phase: 1 | Last updated: 2 May 2026
+# Always activate venv first: source venv/bin/activate
+
+# PDF processing
+PyMuPDF==1.27.2.3
+
+# Config
+PyYAML==6.0.3
+
+# RAG framework (Phase 1 D5)
+# llama-index==0.10.x  # uncomment when needed
+
+# Vector store (Phase 1 D5)
+# chromadb==0.4.x      # uncomment when needed

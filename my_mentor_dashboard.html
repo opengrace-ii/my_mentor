@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Mentor — Cristin's Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #0ea5e9;
+    --sky-light: #e0f2fe;
+    --sky-dark: #0369a1;
+    --mint: #10b981;
+    --mint-light: #d1fae5;
+    --sun: #f59e0b;
+    --sun-light: #fef3c7;
+    --rose: #f43f5e;
+    --rose-light: #ffe4e6;
+    --purple: #8b5cf6;
+    --purple-light: #ede9fe;
+    --ink: #1e293b;
+    --ink-mid: #475569;
+    --ink-soft: #94a3b8;
+    --bg: #f0f9ff;
+    --card: #ffffff;
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(14,165,233,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(139,92,246,0.06) 0%, transparent 50%);
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: white;
+    border-bottom: 2px solid var(--sky-light);
+    box-shadow: 0 2px 12px rgba(14,165,233,0.08);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--sky), var(--purple));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .nav-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px; font-weight: 800;
+    background: linear-gradient(135deg, var(--sky-dark), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .nav-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--mint);
+    font-weight: 700;
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(1.3); }
+  }
+
+  .nav-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sun), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; cursor: pointer;
+    border: 3px solid var(--sun-light);
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+
+  /* ── GREETING HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 50%, #38bdf8 100%);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+  .hero::after {
+    content: '';
+    position: absolute; right: 80px; bottom: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero-text h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 32px; font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .hero-text p {
+    font-size: 15px; opacity: 0.88;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white;
+    color: var(--sky-dark);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 800; font-size: 15px;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  .hero-mascot {
+    font-size: 90px;
+    position: relative; z-index: 1;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    display: flex; align-items: center; gap: 14px;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .stat-card:hover { transform: translateY(-3px); }
+  .stat-card.sky { border-color: var(--sky-light); }
+  .stat-card.mint { border-color: var(--mint-light); }
+  .stat-card.sun { border-color: var(--sun-light); }
+  .stat-card.purple { border-color: var(--purple-light); }
+
+  .stat-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .sky .stat-icon { background: var(--sky-light); }
+  .mint .stat-icon { background: var(--mint-light); }
+  .sun .stat-icon { background: var(--sun-light); }
+  .purple .stat-icon { background: var(--purple-light); }
+
+  .stat-info .label { font-size: 12px; color: var(--ink-soft); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-info .value { font-size: 24px; font-weight: 900; line-height: 1.2; }
+  .sky .stat-info .value { color: var(--sky-dark); }
+  .mint .stat-info .value { color: #059669; }
+  .sun .stat-info .value { color: #d97706; }
+  .purple .stat-info .value { color: #7c3aed; }
+
+  /* ── MAIN GRID ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+
+  /* ── TODAY'S LESSON CARD ── */
+  .lesson-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 2px solid var(--sky-light);
+  }
+  .lesson-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .lesson-badge {
+    background: var(--sky-light);
+    color: var(--sky-dark);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .lesson-subject {
+    font-family: 'Baloo 2', cursive;
+    font-size: 26px; font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .lesson-chapter {
+    font-size: 14px; color: var(--ink-mid); font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .lesson-topics {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+  }
+  .topic-chip {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .topic-chip.done { background: var(--mint-light); color: #059669; }
+  .topic-chip.active { background: var(--sky-light); color: var(--sky-dark); }
+  .topic-chip.next { background: #f1f5f9; color: var(--ink-soft); }
+
+  /* progress bar */
+  .lesson-progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 13px; font-weight: 700; color: var(--ink-mid);
+    margin-bottom: 8px;
+  }
+  .progress-track {
+    height: 10px; background: #e2e8f0; border-radius: 10px;
+    overflow: hidden; margin-bottom: 20px;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, var(--sky), var(--mint));
+    transition: width 1s ease;
+  }
+
+  .lesson-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--sky-dark), var(--sky));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px; font-weight: 800;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .lesson-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,165,233,0.4); }
+
+  /* ── CAMERA PANEL ── */
+  .camera-panel {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 2px solid #f1f5f9;
+  }
+
+  .cam-feed {
+    background: #0f172a;
+    border-radius: var(--radius-sm);
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .cam-feed::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.12) 0%, transparent 70%);
+  }
+  .cam-label {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(239,68,68,0.9);
+    color: white; font-size: 11px; font-weight: 800;
+    padding: 4px 10px; border-radius: 50px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .cam-rec-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: white;
+    animation: pulse 1s infinite;
+  }
+  .cam-icon { font-size: 48px; opacity: 0.3; }
+  .cam-status-text {
+    position: absolute; bottom: 10px;
+    font-size: 11px; color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+
+  .cam-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .cam-stat {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .cam-stat .cs-label { font-size: 10px; color: var(--ink-soft); font-weight: 700; text-transform: uppercase; }
+  .cam-stat .cs-value { font-size: 16px; font-weight: 900; }
+  .cam-stat.attention .cs-value { color: var(--mint); }
+  .cam-stat.mood .cs-value { color: var(--sun); }
+
+  .cam-info {
+    background: var(--sky-light);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px; color: var(--sky-dark);
+    font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── BOTTOM ROW ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* ── SUBJECTS ── */
+  .subjects-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px;
+    border: 2px solid #f1f5f9;
+  }
+  .subject-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .subject-item:last-child { border-bottom: none; }
+  .subject-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .subject-name { font-size: 14px; font-weight: 800; color: var(--ink); }
+  .subject-chapter { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+  .subject-score {
+    margin-left: auto;
+    font-size: 14px; font-weight: 900;
+  }
+  .mini-bar {
+    height: 4px; background: #e2e8f0; border-radius: 4px;
+    margin-top: 4px; overflow: hidden;
+  }
+  .mini-bar-fill { height: 100%; border-radius: 4px; }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px;
+    border: 2px solid #f1f5f9;
+  }
+  .achievement-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+  }
+  .badge {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; padding: 12px 8px;
+    border-radius: var(--radius-sm);
+    cursor: default;
+    transition: transform 0.2s;
+  }
+  .badge:hover { transform: scale(1.05); }
+  .badge.earned { background: var(--sun-light); }
+  .badge.locked { background: #f1f5f9; opacity: 0.5; }
+  .badge-icon { font-size: 26px; }
+  .badge-name { font-size: 10px; font-weight: 800; text-align: center; color: var(--ink-mid); }
+
+  /* ── RECENT SESSIONS ── */
+  .sessions-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px;
+    border: 2px solid #f1f5f9;
+  }
+  .session-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f8fafc;
+  }
+  .session-item:last-child { border-bottom: none; }
+  .session-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .session-info { flex: 1; }
+  .session-title { font-size: 13px; font-weight: 800; color: var(--ink); }
+  .session-date { font-size: 11px; color: var(--ink-soft); font-weight: 600; }
+  .session-score {
+    font-size: 13px; font-weight: 900;
+    padding: 3px 10px; border-radius: 50px;
+  }
+
+  /* ── CAMERA INFO BANNER ── */
+  .camera-info-banner {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    color: white;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border: 1px solid rgba(14,165,233,0.2);
+  }
+  .cam-banner-left { display: flex; align-items: center; gap: 16px; }
+  .cam-model {
+    background: rgba(14,165,233,0.15);
+    border: 1px solid rgba(14,165,233,0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 11px; font-weight: 800;
+    color: var(--sky);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .cam-banner-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .cam-banner-sub { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 600; }
+  .cam-specs { display: flex; gap: 20px; }
+  .cam-spec { text-align: center; }
+  .cam-spec .sv { font-size: 16px; font-weight: 900; color: var(--sky); }
+  .cam-spec .sl { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 700; text-transform: uppercase; }
+  .cam-conn {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.3);
+    padding: 8px 16px; border-radius: 50px;
+    font-size: 12px; font-weight: 800; color: var(--mint);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .stats-row { grid-template-columns: repeat(2,1fr); }
+    .main-grid { grid-template-columns: 1fr; }
+    .bottom-row { grid-template-columns: 1fr; }
+    .cam-specs { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">🎓</div>
+    <span class="nav-title">My Mentor</span>
+  </div>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Camera Active · Xiaomi 360 2K
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div style="text-align:right;">
+      <div style="font-size:13px;font-weight:800;color:var(--ink);">Cristin</div>
+      <div style="font-size:11px;color:var(--ink-soft);font-weight:600;">Grade 1 · CBSE</div>
+    </div>
+    <div class="nav-avatar">👧</div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- CAMERA INFO BANNER -->
+  <div class="camera-info-banner">
+    <div class="cam-banner-left">
+      <div class="cam-model">📷 XIAOMI<br>360° 2K<br>MJSXJ09CM</div>
+      <div>
+        <div class="cam-banner-title">Xiaomi 360° Home Security Camera 2K — Connected</div>
+        <div class="cam-banner-sub">MAC: 78:DF:72:B5:0C:10 · Local Network · MediaPipe Vision Active</div>
+        <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;">
+          ⚠️ Integration method: python-miio local token · RTSP stream via ffmpeg bridge · All processing on-device
+        </div>
+      </div>
+    </div>
+    <div class="cam-specs">
+      <div class="cam-spec"><div class="sv">2K</div><div class="sl">Resolution</div></div>
+      <div class="cam-spec"><div class="sv">360°</div><div class="sl">Coverage</div></div>
+      <div class="cam-spec"><div class="sv">F1.4</div><div class="sl">Aperture</div></div>
+      <div class="cam-spec"><div class="sv">110°</div><div class="sl">Lens Angle</div></div>
+    </div>
+    <div class="cam-conn">
+      <div class="status-dot" style="background:var(--mint);"></div>
+      Connected · Local Only
+    </div>
+  </div>
+
+  <!-- HERO GREETING -->
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Good Morning, Cristin! 🌞</h1>
+      <p>आज हम English और Hindi दोनों पढ़ेंगे · Today's lesson is ready for you!</p>
+      <a class="hero-cta" href="#">
+        ▶ Start Today's Lesson
+      </a>
+    </div>
+    <div class="hero-mascot">🦋</div>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-card sky">
+      <div class="stat-icon">🔥</div>
+      <div class="stat-info">
+        <div class="label">Day Streak</div>
+        <div class="value">7 Days</div>
+      </div>
+    </div>
+    <div class="stat-card mint">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-info">
+        <div class="label">Stars Earned</div>
+        <div class="value">42 Stars</div>
+      </div>
+    </div>
+    <div class="stat-card sun">
+      <div class="stat-icon">📚</div>
+      <div class="stat-info">
+        <div class="label">Lessons Done</div>
+        <div class="value">18 Total</div>
+      </div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-icon">🧠</div>
+      <div class="stat-info">
+        <div class="label">Words Learned</div>
+        <div class="value">134 Words</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- TODAY'S LESSON -->
+    <div>
+      <div class="section-label">📖 Today's Lesson</div>
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div>
+            <div class="lesson-badge">English · Chapter 3</div>
+          </div>
+          <div style="font-size:13px;color:var(--ink-soft);font-weight:600;">20 min session</div>
+        </div>
+        <div class="lesson-subject">The Alphabet Adventure</div>
+        <div class="lesson-chapter">Sight Words · Letters B, C, D · Simple Sentences</div>
+
+        <div class="lesson-topics">
+          <div class="topic-chip done">✓ Letter A — Done</div>
+          <div class="topic-chip active">▶ Letter B — Today</div>
+          <div class="topic-chip next">○ Letter C — Next</div>
+          <div class="topic-chip next">○ Sight Words</div>
+        </div>
+
+        <div class="lesson-progress-label">
+          <span>Chapter Progress</span>
+          <span>65%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:65%;"></div>
+        </div>
+
+        <!-- Hindi lesson preview -->
+        <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🇮🇳 Hindi — आज का पाठ</div>
+          <div style="font-size:15px;font-weight:800;color:var(--ink);">वर्णमाला · Letter ब (Ba)</div>
+          <div style="font-size:12px;color:var(--ink-mid);font-weight:600;margin-top:2px;">ब से बंदर · ब से बस · ब से बादल</div>
+        </div>
+
+        <button class="lesson-btn">
+          ▶ &nbsp; Begin Lesson with My Mentor
+        </button>
+      </div>
+    </div>
+
+    <!-- CAMERA PANEL -->
+    <div>
+      <div class="section-label">📷 Attention Monitor</div>
+      <div class="camera-panel">
+        <div class="cam-feed">
+          <div class="cam-label">
+            <div class="cam-rec-dot"></div> LIVE
+          </div>
+          <div class="cam-icon">📷</div>
+          <div class="cam-status-text">Waiting for session to start...</div>
+        </div>
+
+        <div class="cam-stats">
+          <div class="cam-stat attention">
+            <div class="cs-label">Attention</div>
+            <div class="cs-value">—</div>
+          </div>
+          <div class="cam-stat mood">
+            <div class="cs-label">Mood</div>
+            <div class="cs-value">😊</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+          <div style="background:#f8fafc;border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:10px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;">Last Session</div>
+            <div style="font-size:13px;font-weight:900;color:var(--ink);">Yesterday</div>
+          </div>
+          <div style="background:#f8fafc;border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:10px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;">Duration</div>
+            <div style="font-size:13px;font-weight:900;color:var(--ink);">18 min</div>
+          </div>
+        </div>
+
+        <div class="cam-info">
+          <span>📡</span>
+          <span>Xiaomi 360° · Wi-Fi · Local stream only</span>
+        </div>
+
+        <div style="margin-top:10px;background:#fff7ed;border-radius:10px;padding:10px 12px;font-size:11px;color:#92400e;font-weight:700;">
+          🔒 All video processed on-device · Never stored · Never uploaded
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM ROW -->
+  <div class="bottom-row">
+
+    <!-- SUBJECTS -->
+    <div>
+      <div class="section-label">📚 My Subjects</div>
+      <div class="subjects-card">
+        <div class="subject-item">
+          <div class="subject-icon" style="background:#dbeafe;">🔤</div>
+          <div>
+            <div class="subject-name">English</div>
+            <div class="subject-chapter">Ch.3 · Alphabet Adventure</div>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:65%;background:var(--sky);"></div></div>
+          </div>
+          <div class="subject-score" style="color:var(--sky-dark);">65%</div>
+        </div>
+        <div class="subject-item">
+          <div class="subject-icon" style="background:#fce7f3;">🇮🇳</div>
+          <div>
+            <div class="subject-name">Hindi</div>
+            <div class="subject-chapter">वर्णमाला · क ख ग</div>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:48%;background:var(--purple);"></div></div>
+          </div>
+          <div class="subject-score" style="color:var(--purple);">48%</div>
+        </div>
+        <div class="subject-item" style="opacity:0.45;">
+          <div class="subject-icon" style="background:#f0fdf4;">🔢</div>
+          <div>
+            <div class="subject-name">Maths</div>
+            <div class="subject-chapter">Coming in Phase 2</div>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:0%;background:var(--mint);"></div></div>
+          </div>
+          <div class="subject-score" style="color:var(--ink-soft);">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div>
+      <div class="section-label">🏅 Achievements</div>
+      <div class="achievements-card">
+        <div class="achievement-grid">
+          <div class="badge earned"><div class="badge-icon">⭐</div><div class="badge-name">First Star</div></div>
+          <div class="badge earned"><div class="badge-icon">🔥</div><div class="badge-name">7-Day Streak</div></div>
+          <div class="badge earned"><div class="badge-icon">🦋</div><div class="badge-name">Fast Learner</div></div>
+          <div class="badge earned"><div class="badge-icon">🎵</div><div class="badge-name">Hindi Hero</div></div>
+          <div class="badge locked"><div class="badge-icon">🏆</div><div class="badge-name">Chapter 1 Done</div></div>
+          <div class="badge locked"><div class="badge-icon">🚀</div><div class="badge-name">Speed Reader</div></div>
+        </div>
+        <div style="margin-top:14px;text-align:center;font-size:12px;color:var(--ink-soft);font-weight:700;">
+          4 of 12 badges earned · Keep going! 💪
+        </div>
+      </div>
+    </div>
+
+    <!-- RECENT SESSIONS -->
+    <div>
+      <div class="section-label">🕐 Recent Sessions</div>
+      <div class="sessions-card">
+        <div class="session-item">
+          <div class="session-dot" style="background:var(--mint);"></div>
+          <div class="session-info">
+            <div class="session-title">English · Letter A + Sight Words</div>
+            <div class="session-date">Yesterday · 18 min</div>
+          </div>
+          <div class="session-score" style="background:var(--mint-light);color:#059669;">★ 5/5</div>
+        </div>
+        <div class="session-item">
+          <div class="session-dot" style="background:var(--sky);"></div>
+          <div class="session-info">
+            <div class="session-title">Hindi · अ आ इ ई</div>
+            <div class="session-date">2 days ago · 20 min</div>
+          </div>
+          <div class="session-score" style="background:var(--sky-light);color:var(--sky-dark);">★ 4/5</div>
+        </div>
+        <div class="session-item">
+          <div class="session-dot" style="background:var(--sun);"></div>
+          <div class="session-info">
+            <div class="session-title">English · Phonics — B sound</div>
+            <div class="session-date">3 days ago · 15 min</div>
+          </div>
+          <div class="session-score" style="background:var(--sun-light);color:#d97706;">★ 4/5</div>
+        </div>
+        <div class="session-item">
+          <div class="session-dot" style="background:var(--purple);"></div>
+          <div class="session-info">
+            <div class="session-title">Hindi · क से कमल</div>
+            <div class="session-date">4 days ago · 17 min</div>
+          </div>
+          <div class="session-score" style="background:var(--purple-light);color:#7c3aed;">★ 5/5</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div style="text-align:center;padding:20px 0;font-size:12px;color:var(--ink-soft);font-weight:600;">
+    My Mentor v1.0 · Built for Cristin · Mac Mini M4 · All data stays on your device 🔒
+  </div>
+
+</div>
+</body>
+</html>
