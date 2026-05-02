@@ -1,0 +1,49 @@
+# Environment
+.env
+.env.local
+.env.production
+
+# Data (never commit student data or models)
+data/textbooks/
+data/vector_db/
+data/sessions/
+data/reports/
+data/models/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+frontend/.next/
+
+# macOS
+.DS_Store
+*.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Database files (local dev)
+*.db
+*.sqlite3
+
+# ML Models (too large for git)
+*.bin
+*.gguf
+*.pt
+*.pth
+*.safetensors
